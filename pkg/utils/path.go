@@ -2,6 +2,7 @@ package utils
 
 import (
 	"fmt"
+	"log"
 	"path/filepath"
 	"strings"
 
@@ -27,6 +28,16 @@ func GetFromAndToPathsFromK8s(iClient interface{}, pods []string, namespace, con
 // GetFromAndToPathsSrcToK8s performs a path mapping between a source and Kubernetes
 func GetFromAndToPathsSrcToK8s(srcClient, k8sClient interface{}, srcPrefix, srcPath, srcBasePath, namespace, container, cassandraDataDir string) ([]skbn.FromToPair, []string, []string, error) {
 	var fromToPaths []skbn.FromToPair
+
+	log.Printf("GetFromAndToPathsSrcToK8s:srcClient=%s \n", srcClient)
+	log.Printf("GetFromAndToPathsSrcToK8s:k8sClient=%s \n", k8sClient)
+	log.Printf("GetFromAndToPathsSrcToK8s:srcPrefix=%s \n", srcPrefix)
+	log.Printf("GetFromAndToPathsSrcToK8s:srcPath=%s \n", srcPath)
+	log.Printf("GetFromAndToPathsSrcToK8s:srcBasePath=%s \n", srcBasePath)
+	log.Printf("GetFromAndToPathsSrcToK8s:namespace=%s \n", namespace)
+	log.Printf("GetFromAndToPathsSrcToK8s:container=%s \n", container)
+	log.Printf("GetFromAndToPathsSrcToK8s:cassandraDataDir=%s \n", cassandraDataDir)
+	log.Printf("GetFromAndToPathsSrcToK8s:GetListOfFiles(%s,%s,%s) \n", srcClient, srcPrefix, srcPath)
 
 	filesToCopyRelativePaths, err := skbn.GetListOfFiles(srcClient, srcPrefix, srcPath)
 	if err != nil {
